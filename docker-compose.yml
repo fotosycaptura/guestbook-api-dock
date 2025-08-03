@@ -1,0 +1,17 @@
+services:
+  libro-api:
+    build: .
+    container_name: libro_visitas_api
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./datos:/app/datos
+    environment:
+      - FLASK_ENV=production
+#    networks:
+#      - web
+
+#networks:
+#  web:
+#    external: true
