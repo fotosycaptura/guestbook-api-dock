@@ -71,7 +71,7 @@ Envía una firma al libro de visitas. Se espera un JSON con los campos:
 
 ```json
 {
-  "nombre": "Xavi",
+  "nombre": "Jhon",
   "mensaje": "¡Tu sitio es genial!"
 }
 ```
