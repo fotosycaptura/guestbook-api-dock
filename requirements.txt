@@ -1,5 +1,4 @@
 Flask
 flask-cors
 flask-limiter
-geoip2
 pillow
