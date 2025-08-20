@@ -6,6 +6,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
+      - ./datos/stat:/app/static/data:ro
       - ./datos:/app/datos
     environment:
       - FLASK_ENV=production
