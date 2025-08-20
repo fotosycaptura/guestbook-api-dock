@@ -13,8 +13,14 @@ import geoip2.database
  Quizás, haya que modificar las rutas para que estén en un solo lugar para facilidad de mantenimiento.
 """
 
+# Ruta general
+RUTA_GENERAL = "./datos/"
+
 # Ruta a tu archivo real de logs:
-LOG_PATH = Path("/mnt/nfs_share/guestbook-api-dock/datos/referer.log")  # <-- CAMBIA ESTA RUTA
+LOG_PATH = Path(RUTA_GENERAL + "referer.log")  # <-- CAMBIA ESTA RUTA
+
+# Ruta a la base local GeoLite2
+GEOIP_DB = "./datos/GeoLite2-Country.mmdb"  # Cambia por tu ubicación
 
 # === REGEX/UTILIDADES ===
 _SPLIT_RE = re.compile(r"\s-\s")  # separa por " - "
@@ -101,8 +107,8 @@ def parse_log_file(path: Path) -> pd.DataFrame:
 # === EJECUCIÓN ===
 df = parse_log_file(LOG_PATH)
 
-# Ruta a la base local GeoLite2
-GEOIP_DB = "./datos/GeoLite2-Country.mmdb"  # Cambia por tu ubicación
+# === Lecutra para detectar países ===
+
 reader = geoip2.database.Reader(GEOIP_DB)
 
 def get_country(ip):
@@ -122,9 +128,9 @@ OUT_CSV = LOG_PATH.with_suffix(".geo_parsed.csv")
 df.to_csv(OUT_CSV, index=False, encoding="utf-8")
 
 # === Entradas / Salidas ===
-INPUT_CSV  = Path("/mnt/nfs_share/guestbook-api-dock/datos/referer.geo_parsed.csv")
+INPUT_CSV  = Path(RUTA_GENERAL + "referer.geo_parsed.csv")
 # Coloca el JSON dentro de "content/data" para que Pelican lo copie tal cual al sitio:
-OUTPUT_JSON = Path("/mnt/nfs_share/guestbook-api-dock/datos/stat/site_stats.json")
+OUTPUT_JSON = Path(RUTA_GENERAL + "stat/site_stats.json")
 OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
 
 # === Carga de datos ===
