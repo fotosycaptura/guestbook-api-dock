@@ -199,6 +199,8 @@ def firmar_libro():
     }), 200
 
 # Endpoint para generar la imagen del contador de visitas
+# Rate limit más alto para permitir cargas de páginas concurridas
+@limiter.limit("120 per minute")
 @app.route('/contador.png')
 def contador():
     # Incrementar visitas
